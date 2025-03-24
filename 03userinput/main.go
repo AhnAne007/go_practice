@@ -7,27 +7,30 @@ import (
 )
 
 func main() {
-    welcome := "Welcome to user input"
-    fmt.Println(welcome)
+	welcome := "Welcome to user input"
+	fmt.Println(welcome)
 
-    // Method 1: Using fmt.Scanln()
-    var name string
-    fmt.Print("Enter your name: ")
-    fmt.Scanln(&name)
-    fmt.Println("Hello,", name)
+	// Method 1: Using fmt.Scanln()
+	var name string
+	fmt.Print("Enter your name: ")
+	fmt.Scanln(&name)
+	fmt.Println("Hello,", name)
 
-    // Method 2: Using fmt.Scan()
-    var age int
-    fmt.Print("Enter your age: ")
-    fmt.Scan(&age)
-    fmt.Println("You are", age, "years old.")
+	// Method 2: Using fmt.Scan()
+	var age int
+	fmt.Print("Enter your age: ")
+	fmt.Scan(&age)
+	fmt.Println("You are", age, "years old.")
 
-    // Method 3: Using bufio.NewReader() (Handles spaces and multiple words)
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Print("Enter your full name: ")
-    fullName, _ := reader.ReadString('\n')
-    fmt.Println("Your full name is:", fullName)
+	// Fix: Clear the input buffer before using bufio.NewReader()
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Press Enter to continue...") 
+	reader.ReadString('\n') // Consume leftover newline
 
+	// Method 3: Using bufio.NewReader() (Handles spaces and multiple words)
+	fmt.Print("Enter your full name: ")
+	fullName, _ := reader.ReadString('\n')
+	fmt.Println("Your full name is:", fullName)
 }
 
 
